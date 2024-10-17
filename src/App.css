@@ -111,18 +111,18 @@
                 gap: 5px;
                 padding-top: 60px;
                 .today{
-                    font-size: 25px;
+                    font-size: clamp(1.25rem, 1.0739rem + 0.5634vw, 1.75rem);;
                     font-weight: 600;
                     font-family: 'Poppins', sans-serif;
                 }
                 .main-weather{
-                    font-size :18px;
+                    font-size: clamp(0.9375rem, 0.7835rem + 0.493vw, 1.375rem);
                     font-weight: 500;
                     font-family: 'Poppins', sans-serif;
                 }
                 .city-name {
                     color: white;
-                    font-size: 42px;
+                    font-size: clamp(1.875rem, 1.4349rem + 1.4085vw, 3.125rem);
                     font-weight: 700;
                     margin: 0;
                     text-transform: capitalize;
@@ -152,7 +152,7 @@
                     /* height: 130px; */
                     border-radius: 35%;
                     color: black;
-                    font-size: 18px;
+                    font-size: clamp(0.9375rem, 0.7835rem + 0.493vw, 1.375rem);
                     font-weight: 500;
                     /* background : rgba(211,211, 211, 1); */
                     text-align: center;
