@@ -8,13 +8,13 @@ function App() {
   const [cityDropdown, setCityDropdown] = useState(false);
   const [cityList, setCity] = useState(['Delhi', 'Chennai', 'Mumbai', 'Kolkata', 'Banglore', 'Hyderabad', 'Pune', 'Ahmedabad', 'Surat', 'Jaipur']);
   const [masterCitylist, setMasterCityList] = useState([]);
-  const [inputValue, setInputValue] = useState('Kochi');
+  const [inputValue, setInputValue] = useState('Chennai');
   useEffect(() => {
     getCityList().then((data) => {
       setMasterCityList(data);
       setCity(data.slice(0, 9));
     })
-    geWeathertData('Kochi');
+    geWeathertData('Chennai');
   }, [])
 
   function geWeathertData (city)  {
