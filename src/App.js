@@ -1,7 +1,6 @@
 import './App.css';
 import { getData, getCityList } from './services/generalservice';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState , useRef , useEffect} from 'react';
 
 function App() {
   const [weatherResult, setWeatherResult] = useState({});
@@ -9,6 +8,8 @@ function App() {
   const [cityList, setCity] = useState(['Delhi', 'Chennai', 'Mumbai', 'Kolkata', 'Banglore', 'Hyderabad', 'Pune', 'Ahmedabad', 'Surat', 'Jaipur']);
   const [masterCitylist, setMasterCityList] = useState([]);
   const [inputValue, setInputValue] = useState('Chennai');
+  const divRef = useRef(null);
+  const inputRef = useRef(null);
   useEffect(() => {
     getCityList().then((data) => {
       setMasterCityList(data);
@@ -35,20 +36,30 @@ function App() {
   const fahrenheitToCelcius = (fahrenheit) => {
     return parseFloat(((fahrenheit - 32) * 5 / 9).toFixed(1));
   }
+  const handleClick = (event) => {
+    if (
+      divRef.current && !divRef.current.contains(event.target) &&
+      inputRef.current && !inputRef.current.contains(event.target)
+    ) {
+      setCityDropdown(false);
+    }
+  }
+  const handleFocus = () => {
+    setCityDropdown(true);
+  }
 
 
   return (
-    <div className="container-wrapper" >
+    <div className="container-wrapper" onClick={handleClick}>
       <div className="header">
-        <input type="text" value={inputValue} onChange={(e) => filterWeatherdata(e.target.value)} onFocus={() => setCityDropdown(true)} placeholder="Search City" className='citySearch' />
+        <input ref={inputRef} type="text" value={inputValue} onChange={(e) => filterWeatherdata(e.target.value)} onFocus={handleFocus} placeholder="Search City" className='citySearch' />
         {cityDropdown && cityList.length > 0 ? (
-          <div className="city-dropdown">
+          <div className="city-dropdown" ref={divRef}>
             {cityList.map((city) => (
               <p className='city-item' onClick={() => geWeathertData(city)}>{city}</p>
             ))}
           </div>
         ) : null}
-        {/* <button type="button" onClick={() => geWeathertData('chennai')}>SEARCH</button> */}
       </div>
       <div className="container">
         {weatherResult && weatherResult.id ? (
@@ -115,14 +126,6 @@ function App() {
         ) : (
           <div>no data found</div>
         )}
-        {/* <img src='icons/cloudy.svg' alt='cloudy'></img>
-        <img src='icons/cold-temp.svg' alt='cold'></img>
-        <img src='icons/hot-temp.svg' alt='hot'></img>
-        <img src='icons/rain.svg' alt='rain'></img>
-        <img src='icons/storm.svg' alt='storm'></img>
-        <img src='icons/sun.svg'  alt='sun'></img>
-        <img src='icons/thunder-storm.svg' alt='thunder-storm'></img>
-        <img src='icons/wind.svg' alt='wind'></img> */}
       </div>
       {/* <div className="footer">
         footer
